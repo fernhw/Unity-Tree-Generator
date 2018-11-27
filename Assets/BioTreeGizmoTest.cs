@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class BioTree : MonoBehaviour {
+public class BioTreeGizmoTest : MonoBehaviour {
     [SerializeField]
     BranchOptions options;
 
@@ -11,7 +10,7 @@ public class BioTree : MonoBehaviour {
 
     const float
     CILINDER_SEGMENT_Q = 4,
-    CILINDER_SEGMENT_Q_PERCENTAGE = 1 / 4;
+    CILINDER_SEGMENT_Q_PERCENTAGE = 1/4;
 
     bool createdBranchTemp = false;
 
@@ -24,30 +23,32 @@ public class BioTree : MonoBehaviour {
             rot = options.growthDirection // x,y
         };
 
-        Branch tree = new Branch(baseRung, options);
+        BranchGizmoTest tree = new BranchGizmoTest(baseRung, options);
 
     }
 }
 
 
-class Branch {
+class BranchGizmoTest{
     System.Random randomGen;
     System.Random branchShape;
     System.Random branchGenerator;
     System.Random fullUtilityRandom;
 
+
     // Branches that stem from it
-    public List<Branch> branches = new List<Branch>();
+    public List<BranchGizmoTest> branches = new List<BranchGizmoTest>();
 
     public List<BranchRung> core = new List<BranchRung>();
 
     // Growth, branches shouldnt have branch limits.
     int randomSeed;
 
-    public Branch(BranchRung baseRung, BranchOptions seed) {
+    //
+    public BranchGizmoTest (BranchRung baseRung, BranchOptions seed){
         randomGen = new System.Random(seed.randomSeed);
         int branchSeed = randomGen.Next();
-
+       
         int rungNum = Mathf.CeilToInt(seed.growth);
         float rungSize = seed.rungSize + (seed.growth * BranchOptions.RUNG_VS_GROWTH_SIZE);
         float rungNumFloatDifference = seed.growth - (float)rungNum;
@@ -85,12 +86,12 @@ class Branch {
             rung.pos.z = prevRung.pos.z + rungSize * cartZ;
 
             //Temp, TODO: use fibonacci
-            if (Mathf.RoundToInt(((float)branchGenerator.NextDouble()) * seed.branchHappening) == 0) {
-
+            if(Mathf.RoundToInt(((float)branchGenerator.NextDouble())*seed.branchHappening) == 0){
+                
                 Gizmos.color = new Vector4((float)randomGen.NextDouble(),
                                            (float)randomGen.NextDouble(),
-                                           (float)randomGen.NextDouble(), 1);
-
+                                           (float)randomGen.NextDouble(),1);
+                
                 int newBranchSeed = randomGen.Next();
                 int leftOverGrowth = rungNum - i;
                 fullUtilityRandom = new System.Random(newBranchSeed);
@@ -100,7 +101,7 @@ class Branch {
                 };
 
                 // Randomizing branch direction from mother branch
-                Vector2 newDirection = newRung.rot;
+                Vector2 newDirection = newRung.rot; 
                 newRung.rot.x += 1f - (2f) * ((float)fullUtilityRandom.NextDouble());
                 newRung.rot.y += 1f - (2f) * ((float)fullUtilityRandom.NextDouble());
 
@@ -110,23 +111,23 @@ class Branch {
                     correctiveBehavior = seed.correctiveBehavior,
                     randomSeed = newBranchSeed,
                     branchHappening = seed.branchHappening,
-                    growth = (leftOverGrowth + rungNumFloatDifference) * (1 - .61802f),
+                    growth = (leftOverGrowth + rungNumFloatDifference)*(1-.61802f),
                     growthDirection = newDirection
                 };
 
 
                 newBranchOpts.rungSize = rungSize;
                 newBranchOpts.initBranch();
-                Branch newBranch = new Branch(newRung, newBranchOpts);
+                BranchGizmoTest newBranch = new BranchGizmoTest(newRung,newBranchOpts);
                 branches.Add(newBranch);
             }
-
+          
             //rung.pos.z = prevRung.pos.x + sizePerc * Mathf.Cos(prevRung.rot.x);
             rungs.Add(rung);
         }
 
 
-        // Gizmos.color = Color.white;
+       // Gizmos.color = Color.white;
 
         // brute force
         for (int i = 1; i < rungs.Count; i++) {
@@ -135,4 +136,6 @@ class Branch {
             Gizmos.DrawLine(prevRung.pos, rung.pos);
         }
     }
+
+
 }

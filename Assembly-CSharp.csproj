@@ -52,6 +52,9 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\BioTree.cs" />
+     <Compile Include="Assets\BioTreeGizmoTest.cs" />
+     <Compile Include="Assets\BranchOptions.cs" />
+     <Compile Include="Assets\BranchRung.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
