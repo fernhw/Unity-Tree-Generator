@@ -264,154 +264,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &292428403
+--- !u!1 &1059252662
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 292428405}
-  - component: {fileID: 292428404}
+  - component: {fileID: 1059252664}
+  - component: {fileID: 1059252663}
   m_Layer: 0
-  m_Name: Seed (1)
+  m_Name: Seed (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &292428404
+--- !u!114 &1059252663
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 292428403}
+  m_GameObject: {fileID: 1059252662}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29d0f35bd4bf14fabb01f264678a5d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   options:
-    randomSeed: 531
+    randomSeed: 692
     growthDirection: {x: 0, y: 0}
-    growth: 23.9
-    twistX: 0.43
-    twistY: 0.27
-    correctiveBehavior: 0.15
-    rungSize: 20
-    branchHappening: 2
-    halfTwistX: 0.215
-    halfTwistY: 0.135
---- !u!4 &292428405
+    growth: 127.19
+    twistX: 0.25
+    twistY: 0.25
+    correctiveBehavior: 0.1
+    rungSize: 10
+    branchHappening: 3.97
+    halfTwistX: 0.125
+    halfTwistY: 0.125
+--- !u!4 &1059252664
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 292428403}
+  m_GameObject: {fileID: 1059252662}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 135}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &990410100
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 990410102}
-  - component: {fileID: 990410101}
-  m_Layer: 0
-  m_Name: Seed (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &990410101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 990410100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29d0f35bd4bf14fabb01f264678a5d13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  options:
-    randomSeed: 596
-    growthDirection: {x: 0, y: 0}
-    growth: 37.4
-    twistX: 1.96
-    twistY: 0.8
-    correctiveBehavior: 0.5
-    rungSize: 20
-    branchHappening: 0.5
-    halfTwistX: 0.98
-    halfTwistY: 0.4
---- !u!4 &990410102
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 990410100}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 515}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2125806772
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 2125806774}
-  - component: {fileID: 2125806773}
-  m_Layer: 0
-  m_Name: Seed
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2125806773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2125806772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29d0f35bd4bf14fabb01f264678a5d13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  options:
-    randomSeed: 611
-    growthDirection: {x: 0, y: 0}
-    growth: 23.9
-    twistX: 0.43
-    twistY: 0.27
-    correctiveBehavior: 0.15
-    rungSize: 20
-    branchHappening: 2
-    halfTwistX: 0.215
-    halfTwistY: 0.135
---- !u!4 &2125806774
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2125806772}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.45}
+  m_LocalPosition: {x: 0, y: 0, z: 2481}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
