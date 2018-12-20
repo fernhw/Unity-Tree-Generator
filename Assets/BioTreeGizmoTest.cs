@@ -77,14 +77,18 @@ class BranchGizmoTest{
             }
 
             // Creating new branch rung position
-            var cartX = (Mathf.Cos(prevRung.rot.y) * Mathf.Sin(prevRung.rot.x));
-            var cartY = (Mathf.Cos(prevRung.rot.y) * Mathf.Cos(prevRung.rot.x));
-            var cartZ = Mathf.Sin(prevRung.rot.y);
+            var cosX = Mathf.Cos(prevRung.rot.x);
+            var cosY = Mathf.Cos(prevRung.rot.y);
+            var sinX = Mathf.Sin(prevRung.rot.x);
+            var sinY = Mathf.Sin(prevRung.rot.y);
+            var cartX = (cosY * sinX);
+            var cartY = (cosY * cosX);
+            var cartZ = sinY;
             rungSize += (BranchOptions.MIN_RUNG_SIZE - rungSize) * treeScale * BranchOptions.RUNG_CLOSENESS;
             rung.pos.x = prevRung.pos.x + rungSize * cartX;
             rung.pos.y = prevRung.pos.y + rungSize * cartY;
             rung.pos.z = prevRung.pos.z + rungSize * cartZ;
-
+        
             //Temp, TODO: use fibonacci
             if(Mathf.RoundToInt(((float)branchGenerator.NextDouble())*seed.branchHappening) == 0){
                 

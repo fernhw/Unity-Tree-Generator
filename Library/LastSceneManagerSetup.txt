@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/treeScene.unity
+- path: Assets/pine.unity
   isLoaded: 1
   isActive: 1

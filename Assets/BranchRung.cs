@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 class BranchRung {
     /// <summary>
@@ -12,6 +13,10 @@ class BranchRung {
     public Vector3
     pos;
 
+    /// <summary>
+    /// collection of vertexes per Rung for 3d model
+    /// </summary>
+    public List<Vector3> ringData;
     //Create get angle from branch split thing
 
 }
