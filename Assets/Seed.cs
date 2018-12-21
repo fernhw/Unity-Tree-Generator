@@ -44,6 +44,11 @@ public class Seed {
     public float twistY = 0;
     public float correctiveBehavior = 0.1f;
     public float straightness = 0.1f;
+
+    // ADD BRANCH LENGTH
+    // ADD GROWTH RANDOMIZER 0 -> ?
+    // ADD (LEAFS)
+
     public float rungSize = .1f; //TODO:Change uniformity
     public float branchSplitForced = 0;
     public float branchSplitDynamic = 0;
