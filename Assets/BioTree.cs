@@ -1,4 +1,26 @@
-﻿
+﻿/** 
+ * Copyright (c) 2018 Fernando Holguin Weber - All Rights Reserved
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of the Unity Tree Generator 
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all copies or substantial 
+ * portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * 
+ * Fernando Holguín Weber, <contact@fernhw.com>,<http://fernhw.com>,<@fern_hw>
+ * 
+ */
+
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,28 +59,63 @@ using UnityEngine;
 }*/
 
 public class BioTree : MonoBehaviour {
-    [SerializeField]
-    bool showGizmos = false;
-    [SerializeField]
-    BranchOptions options; 
-
-    System.Random rootRandom;
-
+    public static readonly Vector3 ZERO = new Vector3(0,0,0);
     const float
     CILINDER_SEGMENT_Q = 4,
     CILINDER_SEGMENT_Q_PERCENTAGE = 1 / 4;
 
+    [SerializeField]
+    bool showGizmos = false;
+    [SerializeField]
+    Seed options;
+
+    Seed oldSeed;
+
     bool createdBranchTemp = false;
     Mesh sphereMesh;
+    System.Random rootRandom;
+
+    bool inRuntime = false;
+    private void Start() {
+        inRuntime = true;
+    }
+
+    private void Update() {
+        CreateTree();
+    }
 
     void OnDrawGizmos() {
+        if(!inRuntime)
+        CreateTree();
+    }
+
+    void CreateTree (){
+
+        if (oldSeed == null) {
+            oldSeed = new Seed();
+            oldSeed.initBranch();
+        }
+
+        if (Seed.CompareSeeds(oldSeed, options)) {
+            return;
+        }
+
+        int hash = this.transform.GetHashCode();
+        if (options.randomSeedFromObjectHash && hash != options.randomSeed) {
+            options.randomSeed = hash;
+        }
+
+        Seed.InjectSeeds(oldSeed, options);
         options.initBranch();
-        rootRandom = new System.Random(options.randomSeed); //OG seed
+
+        //Debug.Log("Generate" + oldSeed + options);
+
+        rootRandom = new System.Random(options.randomSeed);
         BranchRung baseRung = new BranchRung {
-            pos = transform.position,
+            pos = ZERO,
             rot = new Vector2(
-                -transform.localEulerAngles.z*Mathf.Deg2Rad,
-                transform.localEulerAngles.x*Mathf.Deg2Rad)// x,y
+                -transform.localEulerAngles.z * Mathf.Deg2Rad,
+                transform.localEulerAngles.x * Mathf.Deg2Rad)// x,y
         };
 
         var randomGen = new System.Random(2);
@@ -67,28 +124,18 @@ public class BioTree : MonoBehaviour {
         allBranches = new List<Branch>();
         Branch tree = new Branch(baseRung, options, allBranches);
 
-
-
-
         List<Vector3> vertex = new List<Vector3>();
         List<Vector2> uvs = new List<Vector2>();
         List<int> tris = new List<int>();
 
         int branchNum = allBranches.Count;
         int vertexSoFar = 0;
-        for (int i = 0; i < branchNum; i++){
-            // MAKE EVERY RUNG have more data
-            // CREATE MESH HERE
-            //Gizmos.color = new Vector4((float)randomGen.NextDouble(),
-              //                       (float)randomGen.NextDouble(),
-                //                     (float)randomGen.NextDouble(), 1);
+        for (int i = 0; i < branchNum; i++) {
+
             List<BranchRung> branch = allBranches[i].core;
             var rungNum = branch.Count;
-            //TEMP
-
-            //Ring
             var segmentsNum = 0;
-            for (int a = 0; a < rungNum;a++){
+            for (int a = 0; a < rungNum; a++) {
                 BranchRung rung = branch[a];
                 segmentsNum = rung.ringData.Count;
 
@@ -108,16 +155,16 @@ public class BioTree : MonoBehaviour {
                     tris.Add(upR);
                     tris.Add(lowR);
                 }
-                for (int u = 0; u < segmentsNum;u++){
+                for (int u = 0; u < segmentsNum; u++) {
                     var vert = rung.ringData[u] + rung.pos;
                     vertex.Add(vert);
 
                     // Tris are entirely ID based this is valid
-                    if (a>0 && u>0) {
-                        var lowL = rungId + vertexSoFar + u- 1;
-                        var lowR = rungId + vertexSoFar + u ;
+                    if (a > 0 && u > 0) {
+                        var lowL = rungId + vertexSoFar + u - 1;
+                        var lowR = rungId + vertexSoFar + u;
                         var upL = rungIdU + vertexSoFar + u - 1;
-                        var upR = rungIdU + vertexSoFar + u ;
+                        var upR = rungIdU + vertexSoFar + u;
                         // tri 1
                         tris.Add(upL);
                         tris.Add(lowR);
@@ -127,10 +174,9 @@ public class BioTree : MonoBehaviour {
                         tris.Add(upR);
                         tris.Add(lowR);
                     }
-                    if(showGizmos)
-                    Gizmos.DrawCube(vert, Vector3.one*0.03f);
+                    if (showGizmos)
+                        Gizmos.DrawCube(vert, Vector3.one * 0.03f);
                 }
-
                 if (showGizmos) {
                     if (a > 0) {
                         BranchRung prevRung = branch[a - 1];
@@ -140,15 +186,15 @@ public class BioTree : MonoBehaviour {
             }
             vertexSoFar = vertex.Count;
             if (showGizmos) {
-                Gizmos.color = new Vector4((float)randomGen.NextDouble(),
-                                     (float)randomGen.NextDouble(),
-                                           (float)randomGen.NextDouble(), 1);
+                Gizmos.color = new Vector4( (float)randomGen.NextDouble(),
+                                            (float)randomGen.NextDouble(),
+                                            (float)randomGen.NextDouble(), 1);
             }
         }
 
         vertexSoFar = vertex.Count;
         Vector3[] actualVerts = new Vector3[vertexSoFar];
-        for (int i = 0; i < vertexSoFar;i++){
+        for (int i = 0; i < vertexSoFar; i++) {
             actualVerts[i] = vertex[i];
         }
         int triCount = tris.Count;
@@ -172,6 +218,7 @@ public class BioTree : MonoBehaviour {
         sphereMesh.RecalculateBounds();
         sphereMesh.RecalculateNormals();
     }
+
 }
 
 
@@ -181,14 +228,12 @@ class Branch {
     System.Random branchGenerator;
     System.Random fullUtilityRandom;
 
-
-
     public List<BranchRung> core;
 
     // Growth, branches shouldnt have branch limits.
     int randomSeed;
 
-    public Branch(BranchRung baseRung, BranchOptions seed, List<Branch> root, BranchOptions originalSeed = null) {
+    public Branch(BranchRung baseRung, Seed seed, List<Branch> root, Seed originalSeed = null) {
         if(originalSeed == null){
             originalSeed = seed;
         }
@@ -197,7 +242,7 @@ class Branch {
         randomGen = new System.Random(seed.randomSeed);
         int branchSeed = randomGen.Next();
         int rungNum = Mathf.CeilToInt(seed.growth);
-        float rungSize = seed.rungSize + (seed.growth * BranchOptions.RUNG_VS_GROWTH_SIZE);
+        float rungSize = seed.rungSize + (seed.growth * Seed.RUNG_VS_GROWTH_SIZE);
         float rungNumFloatDifference = seed.growth - (float)rungNum;
 
         float treeRadius = seed.treeRadius * seed.growth * .01f;;
@@ -205,7 +250,7 @@ class Branch {
         if(treeSegments<3){
             treeSegments = 3;
         }
-        float treeScale = 1 / (rungNum * BranchOptions.RUNG_CLOSENESS);
+        float treeScale = 1 / (rungNum * Seed.RUNG_CLOSENESS);
         branchShape = new System.Random(branchSeed);
         branchGenerator = new System.Random(branchSeed);
         core.Add(baseRung);
@@ -240,7 +285,7 @@ class Branch {
             var cartX = (cosY* Mathf.Sin(rung.rot.x));
             var cartY = (cosY * Mathf.Cos(rung.rot.x));
             var cartZ = Mathf.Sin(prevRung.rot.y);
-            rungSize += (BranchOptions.MIN_RUNG_SIZE - rungSize) * treeScale * BranchOptions.RUNG_CLOSENESS;
+            rungSize += (Seed.MIN_RUNG_SIZE - rungSize) * treeScale * Seed.RUNG_CLOSENESS;
             rung.pos.x = prevRung.pos.x + rungSize * cartX;
             rung.pos.y = prevRung.pos.y + rungSize * cartY;
             rung.pos.z = prevRung.pos.z + rungSize * cartZ;
@@ -275,7 +320,7 @@ class Branch {
                 if (newRadius < originalSeed.minRadius) {
                     newRadius = originalSeed.minRadius;
                 }
-                BranchOptions newBranchOpts = new BranchOptions {
+                Seed newBranchOpts = new Seed {
                     twistX = seed.twistX,
                     twistY = seed.twistY,
                     correctiveBehavior = seed.correctiveBehavior,

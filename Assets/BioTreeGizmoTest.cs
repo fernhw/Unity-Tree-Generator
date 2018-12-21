@@ -27,7 +27,7 @@ using UnityEngine;
 
 public class BioTreeGizmoTest : MonoBehaviour {
     [SerializeField]
-    BranchOptions options;
+    Seed options;
 
     System.Random rootRandom;
 
@@ -68,14 +68,14 @@ class BranchGizmoTest{
     int randomSeed;
 
     //
-    public BranchGizmoTest (BranchRung baseRung, BranchOptions seed){
+    public BranchGizmoTest (BranchRung baseRung, Seed seed){
         randomGen = new System.Random(seed.randomSeed);
         int branchSeed = randomGen.Next();
        
         int rungNum = Mathf.CeilToInt(seed.growth);
-        float rungSize = seed.rungSize + (seed.growth * BranchOptions.RUNG_VS_GROWTH_SIZE);
+        float rungSize = seed.rungSize + (seed.growth * Seed.RUNG_VS_GROWTH_SIZE);
         float rungNumFloatDifference = seed.growth - (float)rungNum;
-        float treeScale = 1 / (rungNum * BranchOptions.RUNG_CLOSENESS);
+        float treeScale = 1 / (rungNum * Seed.RUNG_CLOSENESS);
 
         List<BranchRung> rungs = new List<BranchRung>();
 
@@ -107,7 +107,7 @@ class BranchGizmoTest{
             var cartX = (cosY * sinX);
             var cartY = (cosY * cosX);
             var cartZ = sinY;
-            rungSize += (BranchOptions.MIN_RUNG_SIZE - rungSize) * treeScale * BranchOptions.RUNG_CLOSENESS;
+            rungSize += (Seed.MIN_RUNG_SIZE - rungSize) * treeScale * Seed.RUNG_CLOSENESS;
             rung.pos.x = prevRung.pos.x + rungSize * cartX;
             rung.pos.y = prevRung.pos.y + rungSize * cartY;
             rung.pos.z = prevRung.pos.z + rungSize * cartZ;
@@ -132,7 +132,7 @@ class BranchGizmoTest{
                 newRung.rot.x += 1f - (2f) * ((float)fullUtilityRandom.NextDouble());
                 newRung.rot.y += 1f - (2f) * ((float)fullUtilityRandom.NextDouble());
 
-                BranchOptions newBranchOpts = new BranchOptions {
+                Seed newBranchOpts = new Seed {
                     twistX = seed.twistX,
                     twistY = seed.twistY,
                     correctiveBehavior = seed.correctiveBehavior,
