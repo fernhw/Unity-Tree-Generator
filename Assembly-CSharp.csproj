@@ -51,11 +51,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\BioTree.cs" />
-     <Compile Include="Assets\BioTreeGizmoTest.cs" />
-     <Compile Include="Assets\BranchRung.cs" />
-     <Compile Include="Assets\RingTest.cs" />
-     <Compile Include="Assets\Seed.cs" />
+     <Compile Include="Assets\Script\BioTree.cs" />
+     <Compile Include="Assets\Script\Branch.cs" />
+     <Compile Include="Assets\Script\BranchRung.cs" />
+     <Compile Include="Assets\Script\Seed.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
