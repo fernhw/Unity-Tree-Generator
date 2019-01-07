@@ -187,8 +187,9 @@ public class BioTree : MonoBehaviour {
         for (int i = 0; i < triCount; i++) {
             tris[i] = trisList[i];
         }
-
-        //Mesh times, create mesh access filter and renderer.
+        
+        //FIX: Check garbage collector, meshes are a mess.
+        // Mesh times, create mesh access filter and renderer.
         MeshFilter meshFilter = GetComponent<MeshFilter>() as MeshFilter;
         MeshRenderer meshRenderer = GetComponent<MeshRenderer>() as MeshRenderer;
 
@@ -196,7 +197,7 @@ public class BioTree : MonoBehaviour {
         treeMesh.vertices = verts;
         treeMesh.triangles = tris;
         //treeMesh.uv = uvs; //not yet
-
+    
         meshFilter.mesh = treeMesh;
         treeMesh.RecalculateBounds();
         treeMesh.RecalculateNormals();
