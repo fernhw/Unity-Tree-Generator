@@ -4,7 +4,7 @@ video: https://www.youtube.com/watch?v=dpMZ_Yzw8XY
 
 ### by Fern. H.W. (@fern_hw, fernhw.com)
 * Create random trees in unity!<br/>
-* Freely use in your game!<br/>
+* pretty much<br/>
 
 While tools like speed tree are useful they don't match all art-styles and have a lot of unnecesary fluff, this might be right for you as it might not be.<br/>
 
@@ -17,6 +17,7 @@ Work in Progress
 * Needs UVS
 * Needs Leaf generation
 * Textures to work these things in.
+* Generate even more plant life, and even effects in the future.
 
 ## Built With
 
