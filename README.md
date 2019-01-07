@@ -1,5 +1,8 @@
-# Unity Tree Generator <br/><br/>
-### by fernhw (@fern_hw, fernhw.com)
+# Unity Tree Generator (V1.0)<br/><br/>
+
+video: https://www.youtube.com/watch?v=dpMZ_Yzw8XY
+
+### by Fern. H.W. (@fern_hw, fernhw.com)
 * Create random trees in unity!<br/>
 * Freely use in your game!<br/>
 
