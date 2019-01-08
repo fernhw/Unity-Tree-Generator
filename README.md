@@ -19,9 +19,8 @@ Work in Progress
 * Generate even more plant life, and even effects in the future.
 
 ## Simple Warning
-* Designed to be built in editor, not in-game runtime.
-* Generate trees in Editor and hit Play.
-* This doesn't have to stop you.
+* Designed to be built in editor, not in-game runtime. Generate trees in Editor and hit Play.
+* Don't let anything stop you from your dreams.
 
 ## Built With
 * Unity
