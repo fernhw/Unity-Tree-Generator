@@ -46,20 +46,23 @@ class Branch {
         randomGen = new System.Random(seed.randomSeed);
         int branchSeed = randomGen.Next();
         int rungNum = Mathf.CeilToInt(seed.growth);
-        var rungSize = seed.rungSize + (seed.growth * Seed.RUNG_VS_GROWTH_SIZE);
-        var rungNumFloatDifference = seed.growth - (float)rungNum;
-        var treeRadius = seed.treeRadius * seed.growth * .01f; ;
-        var treeSegments = Mathf.Round(seed.radialSegments * treeRadius);
-        var treeScale = 1 / (rungNum * Seed.RUNG_CLOSENESS);
+        float rungSize = seed.rungSize + (seed.growth * Seed.RUNG_VS_GROWTH_SIZE);
+        float rungNumFloatDifference = seed.growth - (float)rungNum;
+        float treeRadius = seed.treeRadius * seed.growth * .01f; ;
+        float treeSegments = Mathf.Round(seed.radialSegments * treeRadius);
+
         if (treeSegments < 3) {
             treeSegments = 3;
         }
+
+        float treeScale = 1 / (rungNum * Seed.RUNG_CLOSENESS);
+
         branchShape = new System.Random(branchSeed);
         branchGenerator = new System.Random(branchSeed);
         core.Add(baseRung);
 
+        //Accessing first branch
         BranchRung rootBranch = root[0].core[0];
-
         for (int i = 1; i < rungNum; i++) {
             BranchRung prevRung = core[i - 1];
             BranchRung rung = new BranchRung();
