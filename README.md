@@ -24,11 +24,11 @@ Work in Progress
 * This doesn't have to stop you.
 
 ## Built With
-
 * Unity
 
 ## Contributing
-TBA
+* FernHw
+* (You maybe)
 
 ## Authors
 
